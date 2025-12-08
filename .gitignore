@@ -1,0 +1,63 @@
+# Environment
+.env
+.env.local
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+.eggs/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+logs/
+*.log
+
+# Browser data (sensitive)
+profiles/
+data/sessions/
+data/cache/
+
+# Redis data
+data/redis/
+
+# Keys and secrets
+*.key
+*.pem
+*_private.key
+*_secret*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.docker/
+
+# Node (if any)
+node_modules/
+
+# Backups
+*.bak
+*.backup
+backups/
+
+# Temporary
+tmp/
+temp/
+*.tmp

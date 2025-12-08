@@ -1,0 +1,45 @@
+# Web framework
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
+# Browser automation
+playwright==1.41.0
+
+# Async HTTP client
+httpx==0.26.0
+aiohttp==3.9.1
+
+# Redis
+redis==5.0.1
+aioredis==2.0.1
+
+# Job queue
+rq==1.15.1
+arq==0.25.0
+
+# CAPTCHA solving
+pytesseract==0.3.10
+Pillow==10.2.0
+openai-whisper==20231117
+numpy==1.26.3
+
+# Utilities
+python-dotenv==1.0.0
+loguru==0.7.2
+tenacity==8.2.3
+fake-useragent==1.4.0
+python-dateutil==2.8.2
+
+# Crypto for fingerprint generation
+cryptography==41.0.7
+
+# HTML parsing
+beautifulsoup4==4.12.3
+lxml==5.1.0
+
+# Testing
+pytest==7.4.4
+pytest-asyncio==0.23.3
+pytest-cov==4.1.0

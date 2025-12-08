@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  # Cloudflare bypass service
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: jarvis-flaresolverr
+    restart: unless-stopped
+    ports:
+      - "8191:8191"
+    environment:
+      - LOG_LEVEL=info
+      - TZ=America/Chicago
+      - CAPTCHA_SOLVER=none
+    networks:
+      - jarvis-net
+
+  # Redis for job queue and caching
+  redis:
+    image: redis:7-alpine
+    container_name: jarvis-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+    command: redis-server --appendonly yes
+    networks:
+      - jarvis-net
+
+  # Main web agent service
+  web-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jarvis-web-agent
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./profiles:/app/profiles
+      - ./data/sessions:/app/sessions
+      - ./data/cache:/app/cache
+      - ./logs:/app/logs
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - FLARESOLVERR_URL=http://flaresolverr:8191
+      - HOME_PROXY_ENABLED=${HOME_PROXY_ENABLED:-true}
+      - HOME_PROXY_URL=${HOME_PROXY_URL:-}
+      - SACVPN_NODES=${SACVPN_NODES:-}
+      - MAX_CONCURRENT_BROWSERS=${MAX_CONCURRENT_BROWSERS:-3}
+      - BROWSER_TIMEOUT=${BROWSER_TIMEOUT:-30000}
+      - HEADLESS=${HEADLESS:-true}
+      - API_KEY=${API_KEY:-}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    depends_on:
+      - redis
+      - flaresolverr
+    shm_size: '2gb'
+    networks:
+      - jarvis-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  jarvis-net:
+    driver: bridge
