@@ -154,4 +154,3 @@ MIT License - StephensCode LLC
 ## Related Documentation
 
 - [JARVIS_INTEGRATION.md](./JARVIS_INTEGRATION.md) - Integration with JARVIS Core
-- [CLAUDE_CODE_INSTRUCTIONS.md](./CLAUDE_CODE_INSTRUCTIONS.md) - Implementation guide
