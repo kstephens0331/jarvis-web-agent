@@ -61,3 +61,6 @@ backups/
 tmp/
 temp/
 *.tmp
+CLAUDE_CODE_INSTRUCTIONS.md
+.claude/
+CLAUDE.md
